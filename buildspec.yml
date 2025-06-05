@@ -5,17 +5,14 @@ env:
     DOCKER_REGISTRY_USERNAME: "/myapp/docker-credentials/username"
     DOCKER_REGISTRY_PASSWORD: "/myapp/docker-credentials/password"
     DOCKER_REGISTRY_URL:      "/myapp/docker-registry/url"
-
 phases:
   install:
     runtime-versions:
       python: 3.11
-
   pre_build:
     commands:
       - echo "Installing dependencies..."
       - pip install -r day-14/simple-python-app/requirements.txt
-
  build:
   commands:
     - echo "Running tests..."
@@ -26,11 +23,9 @@ phases:
     - docker build -t "$DOCKER_REGISTRY_URL/$DOCKER_REGISTRY_USERNAME/simple-python-flask-app:latest" .
     - echo "Pushing Docker image..."
     - docker push "$DOCKER_REGISTRY_URL/$DOCKER_REGISTRY_USERNAME/simple-python-flask-app:latest"
-
   post_build:
     commands:
       - echo "Build completed successfully!"
-
 artifacts:
   files:
     - "**/*"
